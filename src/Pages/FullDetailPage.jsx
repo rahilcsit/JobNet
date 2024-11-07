@@ -23,7 +23,7 @@ const FullDetailPage = () => {
     setLoading(true);
     try {
       console.log("Fetching job details from:", jobUrl);  // Log URL for debugging
-      const response = await axios.get("http://10.162.4.167:5000/getJobDescription", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/getJobDescription`, {
         params: { job_url: jobUrl },
       });
 

@@ -18,7 +18,7 @@ const HomePage = () => {
 
     try {
       // Make a request to Flask API using axios
-      const response = await axios.get("http://10.162.4.167:5000/jobs", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/jobs`, {
         params: {
           job_title: searchQuery, // Send the search query to Flask
         },
