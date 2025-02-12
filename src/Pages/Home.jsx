@@ -1,28 +1,36 @@
 import React, { useState } from "react";
 import { IoLocationOutline } from "react-icons/io5";
 import axios from "axios";
+// import dotenv from "dotenv"
 import { useNavigate } from "react-router-dom";
+import { CgLayoutGrid } from "react-icons/cg";
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State to store search query
   const [jobs, setJobs] = useState([]); // State to store the job data
   const [loading, setLoading] = useState(false); // Loading state
   const [error, setError] = useState(""); // Error state
   const navigate = useNavigate(); 
+  // require('dotenv').config();
 
-
-  // Handle form submission for search
-  const handleSearch = async (e) => {
+   // Handle form submission for search
+   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true); // Show loading indicator
     setError(""); // Reset previous errors
 
     try {
-      // Make a request to Flask API using axios
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/jobs`, {
+      // Make a request to Spring API using axios
+
+      const response = await axios.get(`https://jobnet-springboot.onrender.com/home/jobs`, {
         params: {
-          job_title: searchQuery, // Send the search query to Flask
+          title: searchQuery, // Send the search query to Flask
+          minSalary: 0,
         },
       });
+
+      console.log("title: "+title)
+      console.log("salary: "+minSalary)
+      
 
       // Check if response data is an array of jobs
       if (Array.isArray(response.data)) {
@@ -108,7 +116,11 @@ const JobCard = ({ job }) => {
           <p className="text-gray-500 text-sm">{job.rating}</p>
         </div>
         <div>
-          <p>{job.description}</p>
+          <p>{job.shortDescription}</p>
+        </div>
+
+        <div>
+          <p>{job.post_date}</p>
         </div>
       </div>
   );
